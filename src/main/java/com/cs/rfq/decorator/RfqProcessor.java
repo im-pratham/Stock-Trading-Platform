@@ -49,6 +49,7 @@ public class RfqProcessor {
         extractors.add(new StrikeRateWithTraderExtractor());
         extractors.add(new InstrumentLiquidityExtractor());
         extractors.add(new AverageTradedPriceExtractor());
+        extractors.add(new TradeSideBiasExtractor());
     }
 
     public void startSocketListener() throws InterruptedException {

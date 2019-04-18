@@ -19,4 +19,6 @@ public enum RfqMetadataFieldNames {
     strikeRateWithTrader,
     instrumentLiquidityPastWeek,
     averageTradedPricePastWeek,
+    tradeSideBiasPastWeek,
+    tradeSideBiasPastMonth,
 }
