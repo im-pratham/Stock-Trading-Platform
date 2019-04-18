@@ -41,9 +41,9 @@ public class VolumeTradedForInstrumentExtractorTest  extends AbstractSparkUnitTe
         Object resultPastYear = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentPastYear);
 
         assertEquals(0L, resultToday);
-        assertEquals(750_000L, resultPastWeek);
-        assertEquals(1_350_000L, resultPastMonth);
-        assertEquals(1_350_000L, resultPastYear);
+        assertEquals(920_000L, resultPastWeek);
+        assertEquals(1_520_000L, resultPastMonth);
+        assertEquals(1_520_000L, resultPastYear);
     }
 
     @Test

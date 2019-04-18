@@ -6,6 +6,8 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.mortbay.log.Log;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,24 +20,21 @@ public class StrikeRateWithTraderExtractor implements RfqMetadataExtractor {
         Dataset<Row> filtered = trades
                 .filter(trades.col("TraderId").equalTo(rfq.getTraderId()));
 
-        double totalPositiveTrades = filtered.count();
+        BigDecimal totalPositiveTrades = new BigDecimal(filtered.count());
 
         filtered = negativeTrades
                 .filter(negativeTrades.col("TraderId").equalTo(rfq.getTraderId()));
 
-        double totalNegativeTrades = filtered.count();
-
-//        Log.info("POS / Neg " + totalPositiveTrades + "/" + totalNegativeTrades);
+        BigDecimal totalNegativeTrades = new BigDecimal(filtered.count());
 
         Map<RfqMetadataFieldNames, Object> results = new HashMap<>();
-        double strikeRate = 0;
+        BigDecimal strikeRate = BigDecimal.ZERO;
 
         // check for divide by zero condition
-        if (totalPositiveTrades > 0) {
-            strikeRate = (totalPositiveTrades / (totalPositiveTrades + totalNegativeTrades)) * 100;
+        if (totalPositiveTrades.compareTo(BigDecimal.ZERO) > 0) {
+            strikeRate = totalPositiveTrades.divide(totalPositiveTrades.add(totalNegativeTrades), 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100));
         }
         results.put(strikeRateWithTrader, strikeRate);
         return results;
     }
-
 }

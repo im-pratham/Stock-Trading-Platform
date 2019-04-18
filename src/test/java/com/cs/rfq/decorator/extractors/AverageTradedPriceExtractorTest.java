@@ -39,7 +39,7 @@ public class AverageTradedPriceExtractorTest extends AbstractSparkUnitTest {
 
         Object resultPastMonth = meta.get(RfqMetadataFieldNames.averageTradedPricePastWeek);
 
-        assertEquals(new BigDecimal("125.04"), resultPastMonth);
+        assertEquals(new BigDecimal("127.81"), resultPastMonth);
     }
 
     @Test

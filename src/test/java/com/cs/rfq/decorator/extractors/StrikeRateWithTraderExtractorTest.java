@@ -7,6 +7,7 @@ import org.apache.spark.sql.Row;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -34,9 +35,9 @@ public class StrikeRateWithTraderExtractorTest  extends AbstractSparkUnitTest {
 
         Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades, negativeTrades);
 
-        double result = (double) meta.get(RfqMetadataFieldNames.strikeRateWithTrader);
+        BigDecimal result = (BigDecimal) meta.get(RfqMetadataFieldNames.strikeRateWithTrader);
 
-        assertEquals(50.0, result, 0.0000001);
+        assertEquals(new BigDecimal("50.00"), result);
     }
 
     @Test
@@ -55,9 +56,9 @@ public class StrikeRateWithTraderExtractorTest  extends AbstractSparkUnitTest {
 
         Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades, negativeTrades);
 
-        double result = (double) meta.get(RfqMetadataFieldNames.strikeRateWithTrader);
+        BigDecimal result = (BigDecimal) meta.get(RfqMetadataFieldNames.strikeRateWithTrader);
 
-        assertEquals(100.0, result, 0.0);
+        assertEquals(new BigDecimal("100.00"), result);
     }
 
     @Test
@@ -76,8 +77,8 @@ public class StrikeRateWithTraderExtractorTest  extends AbstractSparkUnitTest {
 
         Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades, negativeTrades);
 
-        double result = (double) meta.get(RfqMetadataFieldNames.strikeRateWithTrader);
+        BigDecimal result = (BigDecimal) meta.get(RfqMetadataFieldNames.strikeRateWithTrader);
 
-        assertEquals(0.0, result, 0.0);
+        assertEquals(BigDecimal.ZERO, result);
     }
 }
