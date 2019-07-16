@@ -26,7 +26,8 @@ public class GenerateDummyTrades {
     private static final String instruments_file = "src/test/resources/trades/instrument-static.csv";
 
     //output trade reports file:
-    private static final String trades_file = "src/test/resources/trades/trades.json";
+//    private static final String trades_file = "src/test/resources/trades/trades.json";
+    private static final String trades_file = "src/test/resources/trades/trades-neg.json";
 
     //variables:
     private static final int counterparties_limit = 10;
