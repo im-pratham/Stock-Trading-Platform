@@ -28,7 +28,7 @@ public class VolumeTradedWithEntityExtractorTest extends AbstractSparkUnitTest {
     @Test
     public void checkVolumeWhenAllTradesMatch() throws ParseException {
 
-        String filePath = getClass().getResource("volume-traded-1.json").getPath();
+        String filePath = getClass().getResource("volume-traded-2.json").getPath();
         Dataset<Row> trades = new TradeDataLoader().loadTrades(session, filePath);
 
         VolumeTradedWithEntityExtractor extractor = new VolumeTradedWithEntityExtractor();
@@ -36,10 +36,10 @@ public class VolumeTradedWithEntityExtractorTest extends AbstractSparkUnitTest {
 
         Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades);
 
-        Object resultToday = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentToday);
-        Object resultPastWeek = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentPastWeek);
-        Object resultPastMonth = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentPastMonth);
-        Object resultPastYear = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentPastYear);
+        Object resultToday = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityToday);
+        Object resultPastWeek = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityPastWeek);
+        Object resultPastMonth = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityPastMonth);
+        Object resultPastYear = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityPastYear);
 
         assertEquals(0L, resultToday);
         assertEquals(700_000L, resultPastWeek);
@@ -58,10 +58,10 @@ public class VolumeTradedWithEntityExtractorTest extends AbstractSparkUnitTest {
 
         Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades);
 
-        Object resultToday = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentToday);
-        Object resultPastWeek = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentPastWeek);
-        Object resultPastMonth = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentPastMonth);
-        Object resultPastYear = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentPastYear);
+        Object resultToday = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityToday);
+        Object resultPastWeek = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityPastWeek);
+        Object resultPastMonth = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityPastMonth);
+        Object resultPastYear = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityPastYear);
 
         assertEquals(0L, resultToday);
         assertEquals(0L, resultPastWeek);
