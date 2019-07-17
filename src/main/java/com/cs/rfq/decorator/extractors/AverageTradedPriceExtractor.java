@@ -57,13 +57,10 @@ public class AverageTradedPriceExtractor implements RfqMetadataExtractor {
             volumePastWeek = 0L;
         }
 
-
-        Log.info("mult/tot " + totalPastWeek + "/" + volumePastWeek);
-
         BigDecimal averageTrade = BigDecimal.ZERO;
         // check for divide by zero condition
         if (!new BigDecimal(volumePastWeek.toString()).equals(BigDecimal.ZERO)) {
-            averageTrade = new BigDecimal(totalPastWeek.toString()).divide(new BigDecimal(volumePastWeek.toString()), RoundingMode.HALF_UP);
+            averageTrade = new BigDecimal(totalPastWeek.toString()).divide(new BigDecimal(volumePastWeek.toString()), 2, RoundingMode.HALF_UP);
         }
 
         // Put the results
