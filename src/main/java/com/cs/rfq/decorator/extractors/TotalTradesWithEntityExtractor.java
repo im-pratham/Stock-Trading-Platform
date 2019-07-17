@@ -14,7 +14,7 @@ import static com.cs.rfq.decorator.extractors.RfqMetadataFieldNames.*;
 public class TotalTradesWithEntityExtractor implements RfqMetadataExtractor {
 
     @Override
-    public Map<RfqMetadataFieldNames, Object> extractMetaData(Rfq rfq, SparkSession session, Dataset<Row> trades) {
+    public Map<RfqMetadataFieldNames, Object> extractMetaData(Rfq rfq, SparkSession session, Dataset<Row> trades, Dataset<Row> negativeTrades) {
 
         long todayMs = DateTime.now().withMillisOfDay(0).getMillis();
         long pastWeekMs = DateTime.now().withMillis(todayMs).minusWeeks(1).getMillis();

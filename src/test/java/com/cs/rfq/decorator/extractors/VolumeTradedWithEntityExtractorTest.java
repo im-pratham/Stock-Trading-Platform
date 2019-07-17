@@ -34,7 +34,7 @@ public class VolumeTradedWithEntityExtractorTest extends AbstractSparkUnitTest {
         VolumeTradedWithEntityExtractor extractor = new VolumeTradedWithEntityExtractor();
         extractor.setTodaysDate(new DateTime(new SimpleDateFormat("yyyy-MM-dd").parse("2018-06-18")));
 
-        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades);
+        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades, null);
 
         Object resultToday = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityToday);
         Object resultPastWeek = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityPastWeek);
@@ -56,7 +56,7 @@ public class VolumeTradedWithEntityExtractorTest extends AbstractSparkUnitTest {
         VolumeTradedWithEntityExtractor extractor = new VolumeTradedWithEntityExtractor();
         extractor.setTodaysDate(new DateTime(new SimpleDateFormat("yyyy-MM-dd").parse("2019-06-17")));
 
-        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades);
+        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades, null);
 
         Object resultToday = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityToday);
         Object resultPastWeek = meta.get(RfqMetadataFieldNames.volumeTradedWithEntityPastWeek);

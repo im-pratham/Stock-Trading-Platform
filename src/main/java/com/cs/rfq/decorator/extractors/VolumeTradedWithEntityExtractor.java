@@ -25,7 +25,7 @@ public class VolumeTradedWithEntityExtractor implements RfqMetadataExtractor {
 
 
     @Override
-    public Map<RfqMetadataFieldNames, Object> extractMetaData(Rfq rfq, SparkSession session, Dataset<Row> trades) {
+    public Map<RfqMetadataFieldNames, Object> extractMetaData(Rfq rfq, SparkSession session, Dataset<Row> trades, Dataset<Row> negativeTrades) {
         String todayDate = new SimpleDateFormat("yyyy-MM-dd").format(this.todaysDate.toDate());
         String pastWeekDate = new SimpleDateFormat("yyyy-MM-dd").format(this.todaysDate.minusWeeks(1).toDate());
         String pastMonthDate = new SimpleDateFormat("yyyy-MM-dd").format(this.todaysDate.minusMonths(1).toDate());

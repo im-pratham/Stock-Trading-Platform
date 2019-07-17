@@ -33,7 +33,7 @@ public class VolumeTradedForInstrumentExtractorTest  extends AbstractSparkUnitTe
         VolumeTradedForInstrumentExtractor extractor = new VolumeTradedForInstrumentExtractor();
         extractor.setTodaysDate(new DateTime(new SimpleDateFormat("yyyy-MM-dd").parse("2018-06-17")));
 
-        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades);
+        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades, null);
 
         Object resultToday = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentToday);
         Object resultPastWeek = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentPastWeek);
@@ -55,7 +55,7 @@ public class VolumeTradedForInstrumentExtractorTest  extends AbstractSparkUnitTe
         VolumeTradedForInstrumentExtractor extractor = new VolumeTradedForInstrumentExtractor();
         extractor.setTodaysDate(new DateTime(new SimpleDateFormat("yyyy-MM-dd").parse("2019-06-17")));
 
-        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades);
+        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades, null);
 
         Object resultToday = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentToday);
         Object resultPastWeek = meta.get(RfqMetadataFieldNames.volumeTradedForInstrumentPastWeek);

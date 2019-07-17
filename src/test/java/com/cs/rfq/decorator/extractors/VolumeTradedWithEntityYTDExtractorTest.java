@@ -31,7 +31,7 @@ public class VolumeTradedWithEntityYTDExtractorTest extends AbstractSparkUnitTes
         VolumeTradedWithEntityYTDExtractor extractor = new VolumeTradedWithEntityYTDExtractor();
         extractor.setSince("2018-01-01");
 
-        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades);
+        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades, null);
 
         Object result = meta.get(RfqMetadataFieldNames.volumeTradedYearToDate);
 
@@ -48,7 +48,7 @@ public class VolumeTradedWithEntityYTDExtractorTest extends AbstractSparkUnitTes
         VolumeTradedWithEntityYTDExtractor extractor = new VolumeTradedWithEntityYTDExtractor();
         extractor.setSince("2019-01-01");
 
-        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades);
+        Map<RfqMetadataFieldNames, Object> meta = extractor.extractMetaData(rfq, session, trades, null);
 
         Object result = meta.get(RfqMetadataFieldNames.volumeTradedYearToDate);
 
