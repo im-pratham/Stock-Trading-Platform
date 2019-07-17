@@ -27,6 +27,7 @@ public class RfqProcessor {
     private final JavaStreamingContext streamingContext;
 
     private final Dataset<Row> trades;
+//    private final Dataset<Row> negativeTrades;
 
     private final List<RfqMetadataExtractor> extractors = new ArrayList<>();
 
@@ -37,12 +38,13 @@ public class RfqProcessor {
         this.streamingContext = streamingContext;
 
         //TODO: use the TradeDataLoader to load the trade data archives
-        this.trades = new TradeDataLoader().loadTrades(session, "src/test/resources/trades/trades.json");
+        this.trades = new TradeDataLoader().loadTrades(session, "src/test/resources/trades/trades.json");//"src/test/resources/com/cs/rfq/decorator/extractors/volume-traded-1.json");//"src/test/resources/trades/trades.json");
 
         //TODO: take a close look at how these two extractors are implemented
-        extractors.add(new TotalTradesWithEntityExtractor());
-        extractors.add(new VolumeTradedWithEntityYTDExtractor());
+//        extractors.add(new TotalTradesWithEntityExtractor());
+//        extractors.add(new VolumeTradedWithEntityYTDExtractor());
         extractors.add(new VolumeTradedForInstrumentExtractor());
+        extractors.add(new VolumeTradedWithEntityExtractor());
     }
 
     public void startSocketListener() throws InterruptedException {

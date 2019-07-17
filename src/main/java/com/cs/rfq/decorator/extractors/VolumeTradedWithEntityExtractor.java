@@ -10,10 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VolumeTradedForInstrumentExtractor implements RfqMetadataExtractor {
-    private String sqlQuery = "SELECT sum(LastQty) from trade where SecurityId='%s' AND TradeDate >= '%s'";
+public class VolumeTradedWithEntityExtractor implements RfqMetadataExtractor {
+    private String sqlQuery = "SELECT sum(LastQty) from trade where EntityId='%s' AND TraderId='%s' AND TradeDate >= '%s'";
 
-    public VolumeTradedForInstrumentExtractor() {
+    public VolumeTradedWithEntityExtractor() {
         this.todaysDate = DateTime.now();
     }
 
@@ -34,16 +34,20 @@ public class VolumeTradedForInstrumentExtractor implements RfqMetadataExtractor 
         trades.createOrReplaceTempView("trade");
 
         Dataset<Row> sqlQueryResultsToday = session.sql(String.format(sqlQuery,
-                rfq.getIsin(),
+                rfq.getEntityId(),
+                rfq.getTraderId(),
                 todayDate));
         Dataset<Row> sqlQueryResultsPastWeek = session.sql(String.format(sqlQuery,
-                rfq.getIsin(),
+                rfq.getEntityId(),
+                rfq.getTraderId(),
                 pastWeekDate));
         Dataset<Row> sqlQueryResultsPastMonth = session.sql(String.format(sqlQuery,
-                rfq.getIsin(),
+                rfq.getEntityId(),
+                rfq.getTraderId(),
                 pastMonthDate));
         Dataset<Row> sqlQueryResultsPastYear = session.sql(String.format(sqlQuery,
-                rfq.getIsin(),
+                rfq.getEntityId(),
+                rfq.getTraderId(),
                 pastYearDate));
 
         // calculate volumes
@@ -67,10 +71,10 @@ public class VolumeTradedForInstrumentExtractor implements RfqMetadataExtractor 
         // Put the results
         Map<RfqMetadataFieldNames, Object> results = new HashMap<>();
 
-        results.put(RfqMetadataFieldNames.volumeTradedForInstrumentToday, volumeToday);
-        results.put(RfqMetadataFieldNames.volumeTradedForInstrumentPastWeek, volumePastWeek);
-        results.put(RfqMetadataFieldNames.volumeTradedForInstrumentPastMonth, volumePastMonth);
-        results.put(RfqMetadataFieldNames.volumeTradedForInstrumentPastYear, volumePastYear);
+        results.put(RfqMetadataFieldNames.volumeTradedWithEntityToday, volumeToday);
+        results.put(RfqMetadataFieldNames.volumeTradedWithEntityPastWeek, volumePastWeek);
+        results.put(RfqMetadataFieldNames.volumeTradedWithEntityPastMonth, volumePastMonth);
+        results.put(RfqMetadataFieldNames.volumeTradedWithEntityPastYear, volumePastYear);
 
         return results;
     }
