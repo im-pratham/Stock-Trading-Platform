@@ -1,5 +1,7 @@
 package com.cs.rfq.utils;
 
+import com.cs.rfq.decorator.Rfq;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,9 +20,15 @@ public class ChatterboxServer {
     //monitors SERVER_PORT_OUT for socket closing
     private static Thread rfqSenderInputThread;
 
+    // maintain historyserver to record RFQs
+    private static HistoryServer historyServer;
+
     public static void main(String[] args) throws Exception {
         runSender();
         runReceiver();
+
+        System.out.println("Enter \"resend\" to resend previously sent RFQ");
+        historyServer = new HistoryServer();
     }
 
     private static void runSender() throws Exception {
@@ -80,9 +88,36 @@ public class ChatterboxServer {
                     //naive polling of System.in to check for input and allow thread to be interrupted
                     if (System.in.available() > 0) {
                         String line = in.readLine();
-                        out.println(line);
-                        out.flush();
-                        log("sent", line);
+
+                        // check if user want to submit RFQ from history
+                        if (line.equalsIgnoreCase("resend")) {
+                            System.out.println(historyServer);
+                            System.out.println("Enter index number of RFQ to resend: ");
+                            int index = Integer.parseInt(in.readLine());
+                            String rfq = historyServer.getRfq(index);
+                            if (rfq != null) {
+                                out.println(rfq);
+                                out.flush();
+
+                                log("sent", rfq);
+                            }
+                            else {
+                                log("History does not exists.", line);
+                            }
+                        } else {
+                            // Check if input string is valid RFQ, if so, send, else ignore and print message
+                            if (Rfq.isValidRfq(line)) {
+                                out.println(line);
+                                out.flush();
+
+                                // save into history
+                                historyServer.addRfq(line);
+
+                                log("sent", line);
+                            } else {
+                                log("Invalid RFQ input.", line);
+                            }
+                        }
                     }  else {
                         Thread.sleep(500);
                     }
